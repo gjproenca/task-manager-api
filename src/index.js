@@ -40,8 +40,8 @@ app.get("/users", (req, res) => {
       res.send(users);
     })
     .catch((e) => {});
+});
 
-  app.listen(port, () => {
-    console.log("Server is up on port " + port);
-  });
+app.listen(port, () => {
+  console.log("Server is up on port " + port);
 });
