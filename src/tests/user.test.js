@@ -3,6 +3,7 @@ const jwt = require("jsonwebtoken");
 const mongoose = require("mongoose");
 const app = require("../app");
 const User = require("../models/user");
+const { findById } = require("../models/user");
 
 const userOneId = new mongoose.Types.ObjectId();
 const userOne = {
@@ -96,4 +97,35 @@ test("Should delete account for user", async () => {
 
 test("Should not delete account for unauthenticathed user", async () => {
   await request(app).delete("/users/me").send().expect(401);
+});
+
+test("Should upload avatar image", async () => {
+  await request(app)
+    .post("/users/me/avatar")
+    .set("Authorization", `Bearer ${userOne.tokens[0].token}`)
+    .attach("avatar", "src/tests/fixtures/profile-pic.jpg")
+    .expect(200);
+
+  const user = await User.findById(userOneId);
+  // To be uses === operator
+  expect(user.avatar).toEqual(expect.any(Buffer));
+});
+
+test("Should update valid user fields", async () => {
+  await request(app)
+    .patch("/users/me")
+    .set("Authorization", `Bearer ${userOne.tokens[0].token}`)
+    .send({ name: "John" })
+    .expect(200);
+
+  const user = await User.findById(userOneId);
+  expect(user.name).toEqual("John");
+});
+
+test("Should not update invalid user fields", async () => {
+  await request(app)
+    .patch("/users/me")
+    .set("Authorization", `Bearer ${userOne.tokens[0].token}`)
+    .send({ location: "London" })
+    .expect(400);
 });
