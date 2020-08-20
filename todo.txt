@@ -1,0 +1,22 @@
+//
+// User Test Ideas
+//
+// TODO: Should not signup user with invalid name/email/password
+// TODO: Should not update user if unauthenticated
+// TODO: Should not update user with invalid name/email/password
+// TODO: Should not delete user if unauthenticated
+
+//
+// Task Test Ideas
+//
+// TODO: Should not create task with invalid description/completed
+// TODO: Should delete user task
+// TODO: Should not delete task if unauthenticated
+// TODO: Should not update other users task
+// TODO: Should fetch user task by id
+// TODO: Should not fetch user task by id if unauthenticated
+// TODO: Should not fetch other users task by id
+// TODO: Should fetch only completed tasks
+// TODO: Should fetch only incomplete tasks
+// TODO: Should sort tasks by description/completed/createdAt/updatedAt
+// TODO: Should fetch page of tasks
